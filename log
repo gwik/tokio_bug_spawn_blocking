@@ -1,0 +1,15 @@
+   Compiling tokio v1.16.1 (/home/gwik/src/playground/tokio/tokio)
+error[E0382]: borrow of moved value: `task`
+   --> /home/gwik/src/playground/tokio/tokio/src/runtime/blocking/pool.rs:257:53
+    |
+226 |     pub(crate) fn spawn(&self, task: Task, rt: &Handle) -> Result<(), ()> {
+    |                                ---- move occurs because `task` has type `pool::Task`, which does not implement the `Copy` trait
+...
+239 |         shared.queue.push_back(task);
+    |                                ---- value moved here
+...
+257 |                     } else if shared.num_th == 0 || task.is_mandatory() {
+    |                                                     ^^^^^^^^^^^^^^^^^^^ value borrowed here after move
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `tokio` due to previous error
